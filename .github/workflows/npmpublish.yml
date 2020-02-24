@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
       - name: Build Project
-        run: npm dist
+        run: npm run dist
       - name: Create Release
         uses: actions/create-release@v1
         env:
