@@ -1,0 +1,23 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Actively</title>
+</head>
+
+<body>
+    <div>
+        Active Window: <span id="activeWindow"></span>
+    </div>
+    <script>
+        const { ipcRenderer } = require('electron')
+        const activeWindowSpan = document.getElementById('activeWindow')
+
+        ipcRenderer.on('active-window-update', (event, arg) => {
+            activeWindowSpan.textContent = arg
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "actively",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^8.0.1"
+  },
+  "dependencies": {
+    "esm": "^3.2.25",
+    "ffi-napi": "^2.4.6"
+  }
+}
