@@ -1,36 +1,28 @@
-name: Node.js Package
+name: Build/release
 
-on:
-  push:
-    branches:
-    - master
+on: push
 
 jobs:
-  build:
-    name: Build Release
+  release:
     runs-on: windows-latest
+
+    strategy:
+      matrix:
+        os: [windows-latest]
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@master
-      - name: Build Project
-        run: npm run dist
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check out Git repository
+        uses: actions/checkout@v1
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
         with:
-            node-version: 12
-            tag_name: ${{ github.ref }}
-            release_name: Release ${{ github.ref }}
-            draft: false
-            prerelease: true
-      - name: Upload Release
-        id: upload-release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with: 
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/actively 1.0.0.exe
-          asset_name: actively 1.0.0.exe
+          node-version: 12
+
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
