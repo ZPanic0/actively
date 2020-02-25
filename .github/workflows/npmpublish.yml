@@ -24,9 +24,10 @@ jobs:
         run: npm run dist
       - name: Cleanup artifacts
         run: |
+          cd dist
           rmdir win-unpacked
           mkdir artifacts
-          mv dist/*.exe artifacts
+          mv *.exe artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
@@ -35,6 +36,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: "dist/actively*.exe"
+          files: "actively*.exe"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
