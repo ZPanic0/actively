@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 12
       - name: npm Build
-        run: npm install && npm run dist
+        run: npm run dist
       - name: Cleanup artifacts
         run: |
           rmdir /S /Q win-unpacked
