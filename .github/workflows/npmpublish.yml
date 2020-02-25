@@ -25,7 +25,6 @@ jobs:
       - name: Cleanup artifacts
         run: |
           cd dist
-          rmdir win-unpacked
           mkdir artifacts
           mv *.exe artifacts
       - name: Upload artifacts
