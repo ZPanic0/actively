@@ -24,7 +24,7 @@ jobs:
         run: npm run dist
       - name: Cleanup artifacts
         run: |
-          rmdir /S win-unpacked
+          rmdir win-unpacked
           mkdir artifacts
           mv dist/*.exe artifacts
       - name: Upload artifacts
